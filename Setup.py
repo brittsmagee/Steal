@@ -5,11 +5,11 @@ import os
 import ctypes
 import codecs
 
-ScriptName = "Steal"
-Website = "http://www.github.com/brittsmagee/steal"
+ScriptName = "Steal Minigame"
+Website = "http://www.github.com/Bare7a/Streamlabs-Chatbot-Scripts"
 Description = "Steal Minigame for Streamlabs Bot"
 Creator = "Bare7a"
-Version = "1.2.6"
+Version = "1.2.8"
 
 configFile = "config.json"
 settings = {}
@@ -48,9 +48,8 @@ def Execute(data):
 		outputMessage = ""
 		userId = data.User			
 		username = data.UserName
-    username = data.userId
 		points = Parent.GetPoints(userId)
-    victimId =Patent.GetDisplayName(userId)
+		victimId = data.User
 
 		if points < settings["costs"]:
 			outputMessage = settings["responseNotEnoughPoints"]
@@ -69,16 +68,17 @@ def Execute(data):
 				outputMessage = ""
 		else:
 			Parent.RemovePoints(userId, username, settings["costs"])
-			isStealing = Parent.GetDisplayName(userId)
-			
+			isStealing = Parent.GetDisplayName
+			userList = Parent.GetViewerList()
+
 			while True:
-				victimId =Patent.GetDisplayName(userId)
+				victimId = userList[Parent.GetRandom(0, len(userList))]
 
 				if victimId != userId:
 					break
 
 			victim = Parent.GetDisplayName(victimId)
-			reward = Parent.GetGetDisplayName(settings["minReward"], settings["maxReward"] + 1)
+			reward = Parent.GetRandom(settings["minReward"], settings["maxReward"] + 1)
 
 			if reward > points:
 				reward = points	
@@ -117,9 +117,9 @@ def ReloadSettings(jsonData):
 	return
 
 def OpenReadMe():
-    location = os.path.join(os.path.dirname(__file__), "README.txt")
-    os.startfile(location)
-    return
+	location = os.path.join(os.path.dirname(__file__), "README.txt")
+	os.startfile(location)
+	return
 
 def Tick():
 	return
